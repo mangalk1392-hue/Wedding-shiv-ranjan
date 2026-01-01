@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Georgia, serif;
+    background:linear-gradient(135deg,#ffecd2,#fcb69f);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    width:330px;
+    height:480px;
+    perspective:1200px;
+}
+
+.inner{
+    width:100%;
+    height:100%;
+    transition:transform 1.2s;
+    transform-style:preserve-3d;
+    position:relative;
+}
+
+.card.open .inner{
+    transform:rotateY(180deg);
+}
+
+.page{
+    position:absolute;
+    width:100%;
+    height:100%;
+    backface-visibility:hidden;
+    border-radius:20px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
+    text-align:center;
+    padding:20px;
+    box-sizing:border-box;
+}
+
+.front{
+    background:linear-gradient(to bottom,#fbc2eb,#a6c1ee);
+}
+
+.back{
+    background:linear-gradient(to bottom,#fff1eb,#ace0f9);
+    transform:rotateY(180deg);
+}
+
+h1,h2{
+    margin:10px 0;
+    color:#6a1b9a;
+}
+
+p{
+    color:#333;
+    font-size:16px;
+}
+
+.tap{
+    margin-top:20px;
+    animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+    0%{opacity:1}
+    50%{opacity:0.4}
+    100%{opacity:1}
+}
+
+/* 🎵 Music Button */
+.music-btn{
+    margin-top:20px;
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    background:linear-gradient(145deg,#ff512f,#dd2476);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    color:#fff;
+    cursor:pointer;
+    box-shadow:0 10px 20px rgba(0,0,0,0.3);
+    animation:pulse 2s infinite;
+}
+
+.music-btn.playing{
+    animation:spin 3s linear infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.1)}
+    100%{transform:scale(1)}
+}
+
+@keyframes spin{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" onclick="openCard()">
+<div class="inner">
+
+<!-- First Page -->
+<div class="page front">
+    <h1>💐 Wedding Invitation 💐</h1>
+    <h2>Shiv Ranjan</h2>
+    <h2>❤️</h2>
+    <h2>Anjaly</h2>
+    <div class="tap">Tap to Open</div>
+</div>
+
+<!-- Second Page -->
+<div class="page back">
+    <h1>शुभ कार्यक्रम</h1>
+    <p>🌸 शुभ तिलक – 21 फरवरी 2026</p>
+    <p>🌼 शुभ हल्दी – 24 फरवरी 2026</p>
+    <p>💍 शुभ विवाह – 25 फरवरी 2026</p>
+
+    <!-- Music Button -->
+    <div class="music-btn" onclick="toggleMusic(event)">
+        🎵
+    </div>
+
+    <p>शादी का गाना</p>
+    <p>Play / Pause करें</p>
+</div>
+
+</div>
+</div>
+
+<!-- 🎶 शादी का गाना -->
+<audio id="song" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+function openCard(){
+    document.querySelector('.card').classList.toggle('open');
+}
+
+function toggleMusic(e){
+    e.stopPropagation();
+    var song = document.getElementById("song");
+    var btn = document.querySelector(".music-btn");
+
+    if(song.paused){
+        song.play();
+        btn.classList.add("playing");
+    }else{
+        song.pause();
+        btn.classList.remove("playing");
+    }
+}
+</script>
+
+</body>
+</html>
